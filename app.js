@@ -1,5 +1,4 @@
 var app = require("express")();
-const e = require("express");
 var mysql = require("mysql");
 var connection = mysql.createConnection({
     host: 'localhost',
@@ -8,16 +7,11 @@ var connection = mysql.createConnection({
     database: 'projects'
 });
 
-
 app.get("/", (req, res) => {
-
     connection.query("select * from todolist", (err, row) => {
         if (err) {
             console.log(err);
         } else {
-
-
-
             var text = "";
             var x;
             for (x in row) {
@@ -29,7 +23,6 @@ app.get("/", (req, res) => {
 
             }
             res.send(`
-    
             <!DOCTYPE html>
         <html>
         
@@ -112,14 +105,9 @@ app.get("/", (req, res) => {
         </body>
         
         </html>
-            
             `)
-
-
-
         }
     })
-
 });
 
 app.get('/insert', (req, res) => {
@@ -130,17 +118,11 @@ app.get('/insert', (req, res) => {
         } else {
             res.redirect("/")
         }
-
     })
-
-
 });
 
 app.get("/del/:id", (req, res) => {
-
     var id_ = req.params.id;
-
-
     connection.query("DELETE FROM todolist WHERE id = ?", id_, (err, rows) => {
         if (err) {
             console.log(err)
@@ -148,20 +130,14 @@ app.get("/del/:id", (req, res) => {
             res.redirect("/");
         }
     })
-
-
 })
-
 connection.connect(function(err) {
     if (err) {
         console.error('error connecting: ' + err.stack);
         return;
     }
-
     console.log('connected as id ' + connection.threadId);
 });
-
-
 
 app.listen(3000, (req, res) => {
     console.log("app on 3000");
